@@ -1,0 +1,8 @@
+{
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx"
+  }
+}
