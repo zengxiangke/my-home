@@ -1,4 +1,3 @@
-import { IForm } from './components/iform';
 import { DefineFormShell, Form, FormValues } from './components/iform/types';
 
 function App() {
