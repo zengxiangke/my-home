@@ -1,3 +1,4 @@
+import { IForm } from './components/iform';
 import { DefineFormShell, Form, FormValues } from './components/iform/types';
 
 function App() {
@@ -16,9 +17,10 @@ function App() {
         type: 'text',
       },
       age: {
-        type: 'textarea',
+        type: 'number',
       },
       book: {
+        type: 'list',
         maxSize: 10,
         layout: [['title']],
         fields: {
@@ -45,7 +47,15 @@ function App() {
     ],
   };
 
-  return <pre>{JSON.stringify({ testForm, defaultValues }, null, 2)}</pre>;
+  return (
+    <>
+      {/* <pre>{JSON.stringify({ testForm, defaultValues }, null, 2)}</pre> */}
+      <IForm
+        form={testForm}
+        initialValues={defaultValues}
+      />
+    </>
+  );
 }
 
 export default App;
