@@ -7,7 +7,16 @@ import type {
 
 function App() {
   type TestFormShell = DefineFormShell<
-    'name' | { type: 'object'; name: 'address'; fields: 'city' | 'street' }
+    | 'name'
+    | { name: 'address'; type: 'object'; fields: 'city' | 'street' }
+    | {
+        name: 'books';
+        type: 'list';
+        fields:
+          | 'title'
+          | 'author'
+          | { name: 'langs'; type: 'list'; fields: 'id' };
+      }
   >;
   const testForm: FormDesc<TestFormShell> = {
     fields: {
@@ -30,11 +39,41 @@ function App() {
           },
         },
       },
+      books: {
+        label: 'Favorite books',
+        type: 'list',
+        layout: [
+          ['title', 'author'],
+          ['langs', 'langs'],
+        ],
+        fields: {
+          title: {
+            label: 'Title',
+            type: 'text',
+          },
+          author: {
+            label: 'Author',
+            type: 'text',
+          },
+          langs: {
+            label: 'Language',
+            type: 'list',
+            fields: {
+              id: {
+                label: 'LangId',
+                type: 'text',
+              },
+            },
+            layout: [['id']],
+          },
+        },
+      },
     },
     layout: [
       //
       ['name'],
       ['address'],
+      ['books'],
     ],
   };
 
@@ -44,6 +83,7 @@ function App() {
       city: '0755',
       street: 'Stone',
     },
+    books: [],
   };
 
   return (
