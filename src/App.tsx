@@ -1,58 +1,56 @@
 import { IForm } from './components/iform';
-import { DefineFormShell, Form, FormValues } from './components/iform/types';
+import type {
+  DefineFormShell,
+  FormDesc,
+  FormValues,
+} from './components/iform/types';
 
 function App() {
   type TestFormShell = DefineFormShell<
-    | 'firstName'
-    | 'lastName'
-    | 'age'
-    | { type: 'list'; name: 'book'; fields: 'title' }
+    'name' | { type: 'object'; name: 'address'; fields: 'city' | 'street' }
   >;
-  const testForm: Form<TestFormShell> = {
+  const testForm: FormDesc<TestFormShell> = {
     fields: {
-      firstName: {
+      name: {
+        label: 'Name',
         type: 'text',
       },
-      lastName: {
-        type: 'text',
-      },
-      age: {
-        type: 'number',
-      },
-      book: {
-        type: 'list',
-        maxSize: 10,
-        layout: [['title']],
+      address: {
+        type: 'object',
+        label: 'home address',
+        layout: [['city', 'street']],
         fields: {
-          title: {
+          city: {
+            label: 'City',
+            type: 'text',
+          },
+          street: {
+            label: 'Street',
             type: 'text',
           },
         },
       },
     },
     layout: [
-      ['firstName', 'lastName'],
-      ['age', 'age'],
+      //
+      ['name'],
+      ['address'],
     ],
   };
 
   const defaultValues: FormValues<TestFormShell> = {
-    age: 20,
-    firstName: 30,
-    lastName: '',
-    book: [
-      {
-        title: 'book1',
-      },
-    ],
+    name: 'Daniel Mike',
+    address: {
+      city: '0755',
+      street: 'Stone',
+    },
   };
 
   return (
     <>
-      {/* <pre>{JSON.stringify({ testForm, defaultValues }, null, 2)}</pre> */}
       <IForm
         form={testForm}
-        initialValues={defaultValues}
+        defaultValues={defaultValues}
       />
     </>
   );

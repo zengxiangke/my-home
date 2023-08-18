@@ -1,13 +1,21 @@
-type TextDesc = {
+interface BaseDesc {
+  required?: boolean;
+  help?: string;
+  deps?: string[];
+  label: string;
+}
+
+interface TextDesc extends BaseDesc {
   type: 'text';
-  required?: boolean;
-  help?: string;
-};
+}
 
-type NumberDesc = {
+interface NumberDesc extends BaseDesc {
   type: 'number';
-  required?: boolean;
-  help?: string;
-};
+}
 
-export { TextDesc, NumberDesc };
+interface SelectOneDesc extends BaseDesc {
+  type: 'select-one';
+  getOptions: (context: object) => Promise<any[]>;
+}
+
+export { TextDesc, NumberDesc, SelectOneDesc };
